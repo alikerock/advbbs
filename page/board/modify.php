@@ -27,7 +27,7 @@
       </div>
       <div class="field">
         <label for="title">제목:</label>
-        <input type="text" id="title" name="title" maxlength="50" value="<?= $resultArr['title'];?>" required>
+        <input type="text" id="title" name="title" maxlength="50" value="<?= $resultArr['title'];?>" >
       </div>
       <div class="field">
         <label for="content">내용:</label>

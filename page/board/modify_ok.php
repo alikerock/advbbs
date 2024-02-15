@@ -10,15 +10,11 @@
 
   $sql ="UPDATE board set name='{$username}', pw='{$userpw}', title='{$title}', content='{$content}', date='{$date}' where idx = {$bno}";
 
-  if($mysqli->query($sql) === true){
+  if($mysqli->query($sql)){
     echo "<script>
         alert('글수정 완료');
         location.href='../../index.php';
         </script>";
-  } else{
-    echo "<script>
-          history.back();
-        </script>";
-  }
+  } 
 
 ?>
