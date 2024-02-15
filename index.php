@@ -58,7 +58,7 @@
 
       <tr>
         <td><?= $row['idx'] ?></td>
-        <td><a href=""><?= $title; ?></a></td>
+        <td><a href="page/board/read.php?idx=<?= $row['idx'] ?>"><?= $title; ?></a></td>
         <td><?= $row['name'] ?></td>
         <td><?= $row['date'] ?></td>
         <td><?= $row['hit'] ?></td>

@@ -32,3 +32,15 @@ table td{
   border-radius:5px;
   text-decoration: none;
 }
+.form .field{
+  margin-bottom: 10px;
+  display: flex;
+  gap:10px;
+}
+.form .field label{
+  width: 40px;
+}
+.form .field input,
+.form .field textarea{
+  flex:1;
+}
