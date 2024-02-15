@@ -22,20 +22,20 @@
 <body>
   <div class="wrapper">
     <h1>글보기</h1>
-    <h2>글제목출력</h2>
+    <h2><?= $resultArr['title'];?></h2>
     <div class="info">
-      <span>글쓴이: </span>
-      <span>날짜: </span>
-      <span>조회수: </span>
-      <span>추천수: </span>
+      <span>글쓴이: <?= $resultArr['name'];?></span>
+      <span>날짜: <?= $resultArr['date'];?></span>
+      <span>조회수: <?= $resultArr['hit'];?></span>
+      <span>추천수: <?= $resultArr['thumbsup'];?></span>
     </div>
-    <div class="content"></div>
+    <div class="content"><?= nl2br($resultArr['content']);?></div>
     <hr>
     <p>
       <a href="../../index.php">홈</a> /
-      <a href="">추천</a>  /
-      <a href="">수정</a>  /
-      <a href="">삭제</a>
+      <a href="thumbsup.php?idx=<?= $bno;?>">추천</a>  /
+      <a href="modify.php?idx=<?= $bno;?>">수정</a>  /
+      <a href="delete.php?idx=<?= $bno;?>">삭제</a>
     </p>
   </div>
 </body>
