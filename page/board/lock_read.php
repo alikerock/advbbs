@@ -20,23 +20,16 @@
   <link rel="stylesheet" href="../../css/bbs.css">
 </head>
 <body>
-  <div class="wrapper">
-    <h1>글보기</h1>
-    <h2><?= $resultArr['title'];?></h2>
-    <div class="info">
-      <span>글쓴이: <?= $resultArr['name'];?></span>
-      <span>날짜: <?= $resultArr['date'];?></span>
-      <span>조회수: <?= $resultArr['hit'];?></span>
-      <span>추천수: <?= $resultArr['thumbsup'];?></span>
+
+    <div id="pass_confirm">
+      <form action="" method="POST">
+        <input type="password" name="pw_chk">
+        <button>확인</button>
+      </form>
     </div>
-    <div class="content"><?= nl2br($resultArr['content']);?></div>
-    <hr>
-    <p>
-      <a href="../../index.php">홈</a> /
-      <a href="thumbsup.php?idx=<?= $bno;?>">추천</a>  /
-      <a href="modify.php?idx=<?= $bno;?>">수정</a>  /
-      <a href="delete.php?idx=<?= $bno;?>">삭제</a>
-    </p>
-  </div>
+    <?php
+      /*입력한 비번과 이 글의 원래 비번 비교, 일치하면 read.php 페이지이동*/
+    ?>
+
 </body>
 </html>

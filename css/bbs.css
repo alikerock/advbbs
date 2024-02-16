@@ -54,3 +54,15 @@ table td{
 .form .jcs input{
   flex:none;
 }
+
+#pass_confirm{
+  position: fixed;
+  width: 300px;
+  padding: 50px 80px;
+  background: #fff;
+  border:1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.5);
+  left:50%;
+  top: 30%;
+  transform:translate(-50%,-50%);
+}
