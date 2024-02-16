@@ -2,14 +2,10 @@
   include $_SERVER['DOCUMENT_ROOT']."/advbbs/inc/db.php";
   //idx번호의 글 조회
   $bno = $_GET['idx'];
-  $sql = "SELECT * FROM board WHERE idx = {$bno}";
+  $sql = "SELECT pw FROM board WHERE idx = {$bno}";
   $result = $mysqli->query($sql);
-  $resultArr = mysqli_fetch_assoc($result);
+  $row = mysqli_fetch_assoc($result);
 
-  //조회수 업데이트
-  $hit = $resultArr['hit'] + 1;
-  $sqlUpdate = "UPDATE board SET hit={$hit} WHERE idx = {$bno}";
-  $mysqli->query($sqlUpdate);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +23,24 @@
         <button>확인</button>
       </form>
     </div>
-    <?php
-      /*입력한 비번과 이 글의 원래 비번 비교, 일치하면 read.php 페이지이동*/
+    <?php      
+      $org_pw = $row['pw'];
+      if(isset($_POST['pw_chk'])){
+        $pwk = $_POST['pw_chk']; //1234
+        if(password_verify($pwk, $org_pw)){
+    ?>
+    <script>
+      location.replace("read.php?idx=<?= $bno;?>");  
+    </script>
+    <?php 
+      } else {
+    ?>
+    <script>
+      alert('비번이 맞지 않습니다.');
+      location.replace("../../index.php");  
+    </script>
+    <?php 
+      } }
     ?>
 
 </body>

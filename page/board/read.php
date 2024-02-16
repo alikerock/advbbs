@@ -29,7 +29,10 @@
       <span>조회수: <?= $resultArr['hit'];?></span>
       <span>추천수: <?= $resultArr['thumbsup'];?></span>
     </div>
+    <hr>
     <div class="content"><?= nl2br($resultArr['content']);?></div>
+    <hr>
+    <h2>댓글</h2>
     <hr>
     <p>
       <a href="../../index.php">홈</a> /
