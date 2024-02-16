@@ -67,7 +67,8 @@ table td{
   transform:translate(-50%,-50%);
 }
 .reply{
-  background: #ccc;
+  background: #ebebeb;
+  padding: 10px;
   margin-bottom: 10px;
 }
 .reply_form input,

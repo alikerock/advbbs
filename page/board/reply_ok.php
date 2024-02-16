@@ -7,7 +7,7 @@
   $content = $_POST['content'];
   $date = date("Y-m-d H:i:s");
   
-  $sql = "INSERT INTO reply (name,password,content,date) values ('{$username}','{$userpw}','{$content}','{$date}')";
+  $sql = "INSERT INTO reply (name,b_idx,password,content,date) values ('{$username}',{$idx},'{$userpw}','{$content}','{$date}')";
 
   if($mysqli->query($sql) === true){
     echo "<script>

@@ -52,6 +52,15 @@
         while($row = mysqli_fetch_assoc($result)){
           $title = $row['title'];
 
+          $reply_cnt_sql = "SELECT COUNT(*) AS cnt FROM reply WHERE b_idx={$row['idx']}";
+          $reply_cnt_result = $mysqli->query($reply_cnt_sql);
+          $reply_row = mysqli_fetch_assoc($reply_cnt_result);
+          if($reply_row['cnt'] > 0){
+            $rc = "(".$reply_row['cnt'].")";
+          } else{
+            $rc ='';
+          }
+
           if(iconv_strlen($title) > 10){
             $title = str_replace($title,iconv_substr($title,0,10,'utf-8').'...',$title);
           }
@@ -62,11 +71,11 @@
         <td>          
           <?php if($row['lock_post'] == 1){ ?>      
           
-          <a href="page/board/lock_read.php?idx=<?= $row['idx'] ?>"><?= $title; ?> <i class="fa-solid fa-lock"></i></a>
+          <a href="page/board/lock_read.php?idx=<?= $row['idx'] ?>"><?= $title.$rc; ?> <i class="fa-solid fa-lock"></i></a>
 
           <?php  } else { ?>
 
-            <a href="page/board/read.php?idx=<?= $row['idx'] ?>"><?= $title; ?></a>
+            <a href="page/board/read.php?idx=<?= $row['idx'] ?>"><?= $title.$rc; ?></a>
 
           <?php } ?>
 
