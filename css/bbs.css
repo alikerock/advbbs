@@ -44,3 +44,13 @@ table td{
 .form .field textarea{
   flex:1;
 }
+
+.jcs{
+  justify-content: start;
+}
+.form .jcs label{
+  width: 100px;
+}
+.form .jcs input{
+  flex:none;
+}

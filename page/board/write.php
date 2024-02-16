@@ -26,6 +26,10 @@
         <label for="pw">비번:</label>
         <input type="password" id="pw" name="pw" required>
       </div>    
+      <div class="field jcs">
+        <input type="checkbox" id="lock" name="lock" >
+        <label for="lock">비밀글</label>
+      </div>    
       <button>글 작성</button>
     </form>
   </div>

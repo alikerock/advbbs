@@ -7,7 +7,13 @@
   $content = $_POST['content'];
   $date = date('Y-m-d');
   
-  $sql = "INSERT INTO board (name,pw,title,content,date) values ('{$username}','{$userpw}','{$title}','{$content}','{$date}')";
+  if(isset($_POST['lock'])){
+    $lock_post = 1;
+  } else{
+    $lock_post = 0;
+  }
+
+  $sql = "INSERT INTO board (name,pw,title,content,date,lock_post) values ('{$username}','{$userpw}','{$title}','{$content}','{$date}', {$lock_post})";
 
   if($mysqli->query($sql) === true){
     echo "<script>
