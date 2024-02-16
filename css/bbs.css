@@ -66,3 +66,13 @@ table td{
   top: 30%;
   transform:translate(-50%,-50%);
 }
+.reply{
+  background: #ccc;
+  margin-bottom: 10px;
+}
+.reply_form input,
+.reply_form textarea{
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+}
