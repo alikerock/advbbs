@@ -59,13 +59,17 @@
 
       <tr>
         <td><?= $row['idx'] ?></td>
-        <td>
-          <a href="page/board/read.php?idx=<?= $row['idx'] ?>"><?= $title; ?></a>
-          <?php 
-            if($row['lock_post'] == 1){
-              echo "<i class=\"fa-solid fa-lock\"></i>";
-            }
-          ?>
+        <td>          
+          <?php if($row['lock_post'] == 1){ ?>      
+          
+          <a href="page/board/lock_read.php?idx=<?= $row['idx'] ?>"><?= $title; ?> <i class="fa-solid fa-lock"></i></a>
+
+          <?php  } else { ?>
+
+            <a href="page/board/read.php?idx=<?= $row['idx'] ?>"><?= $title; ?></a>
+
+          <?php } ?>
+
         </td>
         <td><?= $row['name'] ?></td>
         <td><?= $row['date'] ?></td>
