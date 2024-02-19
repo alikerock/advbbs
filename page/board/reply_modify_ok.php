@@ -12,7 +12,7 @@
   if($mysqli->query($sql)){
     echo "<script>
         alert('댓글수정 완료');
-        location.replace('read.php?idx=$bno;');
+        location.replace('read.php?idx=$bno');
         </script>";
   } 
 ?>
