@@ -46,8 +46,34 @@
       </thead>
       <tbody>
       <?php
+        if(isset($_GET['page'])){
+          $page = $_GET['page'];
+        }else{
+          $page = 1;
+        }
+        //전체 게시물수 조회
+        $page_sql = "SELECT COUNT(*) AS cnt FROM board";
+        $page_result = $mysqli->query($page_sql);
+        $page_row = mysqli_fetch_assoc($page_result);
+        $row_num = $page_row['cnt'];
 
-        $sql = "SELECT * FROM board order by idx desc";
+        //페이지네이션 변수
+        $list = 10;//한페이지당 출력할 게시물 수
+        $block_ct = 5; //페이지네이션 개수
+
+        $block_num = ceil($page/$block_ct); // 1/5  0.2 = 1
+        $block_start = (($block_num - 1) * $block_ct) + 1; // (1-1)*5 + 1 = 1
+        $block_end = $block_start + $block_ct - 1; //1 + 5 – 1 = 5        
+        
+        $total_page = ceil($row_num / $list); // 65/10   6.5   7
+        if($block_end > $total_page) $block_end = $total_page;
+        //만약 블록의 마지막 번호가 페이지수보다 크다면 마지막 번호는 페이지 수
+        // 5>7 $block_end = 5   
+        
+        $total_block = ceil($total_page/$block_ct); //  7/5 = 2
+        $start_num = ($page-1) * $list; //1-1*10 = 0
+
+        $sql = "SELECT * FROM board order by idx desc limit {$start_num}, {$list}";
         $result = $mysqli->query($sql);
         while($row = mysqli_fetch_assoc($result)){
           $title = $row['title'];
