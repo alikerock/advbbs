@@ -92,6 +92,6 @@
       <a href="delete.php?idx=<?= $bno;?>">삭제</a>
     </p>
   </div>
-
+  <script src="js/common.js"></script>
 </body>
 </html>

@@ -77,3 +77,8 @@ table td{
   display: block;
   margin-bottom: 10px;
 }
+.edit_dialog form input,
+.edit_dialog form textarea{
+  width:100%;
+  display: block;
+}
