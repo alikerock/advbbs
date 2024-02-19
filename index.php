@@ -124,6 +124,8 @@
          <?php
         if($page > 1){
           echo "<li><a href=\"index.php?page=1\" class=\"button\">처음</a></li>";
+          //이전
+
         }
        
           for($i=$block_start;$i<=$block_end;$i++){
@@ -133,8 +135,12 @@
               echo "<li><a href=\"index.php?page=$i\">$i</a></li>";
             }            
           }  
-          
+
           if($page < $total_page){
+            if($total_block > $block_num){
+              $next = $block_num * $block_ct + 1;
+              echo "<li><a href=\"index.php?page=$next\" class=\"button\">다음</a></li>";
+            }
             echo "<li><a href=\"index.php?page=$total_page\" class=\"button\">마지막</a></li>";
           }        
         ?>
