@@ -125,7 +125,10 @@
         if($page > 1){
           echo "<li><a href=\"index.php?page=1\" class=\"button\">처음</a></li>";
           //이전
-
+          if($block_num > 1){
+            $prev = 1 + ($block_num - 2) * $block_ct;
+            echo "<li><a href=\"index.php?page=$prev\" class=\"button\">이전</a></li>";
+          }
         }
        
           for($i=$block_start;$i<=$block_end;$i++){
