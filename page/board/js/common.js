@@ -12,3 +12,5 @@ for(let rmb of reply_mod_btn){
     })
   })
 }
+
+//삭제버튼을 클릭하면 할일
