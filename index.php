@@ -56,9 +56,10 @@
         $page_result = $mysqli->query($page_sql);
         $page_row = mysqli_fetch_assoc($page_result);
         $row_num = $page_row['cnt'];
+        echo $row_num;
 
         //페이지네이션 변수
-        $list = 10;//한페이지당 출력할 게시물 수
+        $list = 5;//한페이지당 출력할 게시물 수
         $block_ct = 5; //페이지네이션 개수
 
         $block_num = ceil($page/$block_ct); // 1/5  0.2 = 1
@@ -118,6 +119,27 @@
         
       </tbody>
     </table>
+    <div class="pagenation">
+      <ul>
+         <?php
+        if($page > 1){
+          echo "<li><a href=\"index.php?page=1\" class=\"button\">처음</a></li>";
+        }
+       
+          for($i=$block_start;$i<=$block_end;$i++){
+            if($i == $page){
+              echo "<li><a href=\"index.php?page=$i\" class=\"active\">$i</a></li>";
+            }else{
+              echo "<li><a href=\"index.php?page=$i\">$i</a></li>";
+            }            
+          }  
+          
+          if($page < $total_page){
+            echo "<li><a href=\"index.php?page=$total_page\" class=\"button\">마지막</a></li>";
+          }        
+        ?>
+      </ul>
+    </div>
     <div class="links">
       <a href="./page/board/write.php">글쓰기</a>
     </div>
