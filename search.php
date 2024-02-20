@@ -1,24 +1,49 @@
 <?php
   include $_SERVER['DOCUMENT_ROOT']."/advbbs/inc/db.php";
+  $search_type = $_GET['search_type'];
+  $search_keyword = $_GET['search'];
 
-
-  /*
-  echo strlen('123abc'); //6
-  echo mb_strlen('123abc');//6
-  echo strlen('강남콩'); //9
-  echo mb_strlen('강남콩');//3
-  echo iconv_strlen('강남콩');//3
-
-  //str_replace(B,C,A); A에서 b를 c로 변경  
-  $txt = 'php web 개발'; // web->app
-  $result = str_replace('web','app', $txt);
-  echo $result;
+  if($search_type == 'title'){
+    $type_name = '제목';
+  } else if($search_type == 'name'){
+    $type_name = '글쓴이';
+  } else if($search_type == 'content'){
+    $type_name = '내용';
+  }
+  //페이지네이션
+  if(isset($_GET['page'])){
+    $page = $_GET['page'];
+  }else{
+    $page = 1;
+  }
+  //전체 게시물수 조회
+  $page_sql = "SELECT COUNT(*) AS cnt FROM board WHERE $search_type LIKE '%$search_keyword%' ";
+  $page_result = $mysqli->query($page_sql);
+  $page_row = mysqli_fetch_assoc($page_result);
+  $row_num = $page_row['cnt'];
  
-  $abc = 'abcdefg';
-  //iconv_substr(대상,start, length, charset);
-  $abc2 = iconv_substr($abc,0,5,'utf-8');
-  echo $abc2;
- */
+
+  //페이지네이션 변수
+  $list = 10;//한페이지당 출력할 게시물 수
+  $block_ct = 5; //페이지네이션 개수
+
+  $block_num = ceil($page/$block_ct); // 1/5  0.2 = 1
+  $block_start = (($block_num - 1) * $block_ct) + 1; // (1-1)*5 + 1 = 1
+  $block_end = $block_start + $block_ct - 1; //1 + 5 – 1 = 5        
+  
+  $total_page = ceil($row_num / $list); // 65/10   6.5   7
+  if($block_end > $total_page) $block_end = $total_page;
+  //만약 블록의 마지막 번호가 페이지수보다 크다면 마지막 번호는 페이지 수
+  // 5>7 $block_end = 5   
+  
+  $total_block = ceil($total_page/$block_ct); //  7/5 = 2
+  $start_num = ($page-1) * $list; //1-1*10 = 0
+
+  $sql = "SELECT * FROM board order by idx desc limit {$start_num}, {$list}";
+  $result = $mysqli->query($sql);
+
+  
+
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +58,10 @@
 <body>
   <div class="wrapper">
     <h1>자유게시판</h1>
+    <p><?= $type_name; ?>:<?= $search_keyword; ?>의 검색결과는 총 '<?= $row_num; ?>'건 입니다.</p>
+    <!-- <p>제목:'웹표준'의 검색결과는 총 '10'건 입니다.</p>
+    <p>작성자:'홍길동'의 검색결과는 총 '10'건 입니다.</p>
+    <p>내용:'웹표준'의 검색결과는 총 '10'건 입니다.</p> -->
     <table>
       <thead>
         <tr>
@@ -46,36 +75,7 @@
       </thead>
       <tbody>
       <?php
-        if(isset($_GET['page'])){
-          $page = $_GET['page'];
-        }else{
-          $page = 1;
-        }
-        //전체 게시물수 조회
-        $page_sql = "SELECT COUNT(*) AS cnt FROM board";
-        $page_result = $mysqli->query($page_sql);
-        $page_row = mysqli_fetch_assoc($page_result);
-        $row_num = $page_row['cnt'];
-        echo $row_num;
 
-        //페이지네이션 변수
-        $list = 10;//한페이지당 출력할 게시물 수
-        $block_ct = 5; //페이지네이션 개수
-
-        $block_num = ceil($page/$block_ct); // 1/5  0.2 = 1
-        $block_start = (($block_num - 1) * $block_ct) + 1; // (1-1)*5 + 1 = 1
-        $block_end = $block_start + $block_ct - 1; //1 + 5 – 1 = 5        
-        
-        $total_page = ceil($row_num / $list); // 65/10   6.5   7
-        if($block_end > $total_page) $block_end = $total_page;
-        //만약 블록의 마지막 번호가 페이지수보다 크다면 마지막 번호는 페이지 수
-        // 5>7 $block_end = 5   
-        
-        $total_block = ceil($total_page/$block_ct); //  7/5 = 2
-        $start_num = ($page-1) * $list; //1-1*10 = 0
-
-        $sql = "SELECT * FROM board order by idx desc limit {$start_num}, {$list}";
-        $result = $mysqli->query($sql);
         while($row = mysqli_fetch_assoc($result)){
           $title = $row['title'];
 
@@ -162,7 +162,7 @@
     </div>
     <hr>
     <div class="search_form">
-      <form action="search.php" method="get">
+      <form action="page/board/search.php" method="get">
           <select name="search_type">
             <option value="title">제목</option>
             <option value="name">글쓴이</option>
