@@ -9,7 +9,7 @@
 <body>
   <div class="wrapper">
     <h1>글쓰기</h1>
-    <form action="write_ok.php" method="POST" class="form">
+    <form action="write_ok.php" method="POST" class="form" enctype="multipart/form-data">
       <div class="field">
         <label for="name">이름:</label>
         <input type="text" id="name" name="name" required>
@@ -22,6 +22,10 @@
         <label for="content">내용:</label>
         <textarea name="content" id="content" cols="30" rows="10"></textarea>
       </div>
+      <div class="field">
+        <label for="file">파일:</label>
+        <input type="file" id="file" name="file">
+      </div>      
       <div class="field">
         <label for="pw">비번:</label>
         <input type="password" id="pw" name="pw" required>

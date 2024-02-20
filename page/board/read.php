@@ -31,6 +31,13 @@
     </div>
     <hr>
     <div class="content"><?= nl2br($resultArr['content']);?></div>
+    <div class="attachment">
+        <?php if($resultArr['is_img'] == 1) { ?>  
+        <img src="../../upload/<?= $resultArr['file'];?>" alt="<?= $resultArr['file'];?>">
+        <?php } else{ ?>
+          <a href="../../upload/<?= $resultArr['file'];?>" target="_blank"><?= $resultArr['file'];?></a>
+        <?php } ?>
+      </div>
     <hr>
     <h2>댓글</h2>
     <?php
@@ -44,6 +51,7 @@
       <div class="content">
       <?= nl2br($reply_row['content']);?>
       </div>
+     
       <div class="btns">
         <button class="edit">수정</button>
         <button class="del">삭제</button>

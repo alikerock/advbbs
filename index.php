@@ -59,7 +59,7 @@
         echo $row_num;
 
         //페이지네이션 변수
-        $list = 5;//한페이지당 출력할 게시물 수
+        $list = 10;//한페이지당 출력할 게시물 수
         $block_ct = 5; //페이지네이션 개수
 
         $block_num = ceil($page/$block_ct); // 1/5  0.2 = 1
@@ -95,14 +95,25 @@
 
       <tr>
         <td><?= $row['idx'] ?></td>
-        <td>          
+        <td>        
+          <?php
+            $postdate = $row['date']; //글쓴 날짜
+            $current_date = date('Y-m-d'); //현재 날짜
+
+            if($postdate == $current_date) {
+              $new = '[새글]';
+            } else {
+              $new = '';
+            }
+          ?>  
+        
           <?php if($row['lock_post'] == 1){ ?>      
           
-          <a href="page/board/lock_read.php?idx=<?= $row['idx'] ?>"><?= $title.$rc; ?> <i class="fa-solid fa-lock"></i></a>
+          <a href="page/board/lock_read.php?idx=<?= $row['idx'] ?>"><?= $title.$rc.$new; ?> <i class="fa-solid fa-lock"></i></a>
 
           <?php  } else { ?>
 
-            <a href="page/board/read.php?idx=<?= $row['idx'] ?>"><?= $title.$rc; ?></a>
+            <a href="page/board/read.php?idx=<?= $row['idx'] ?>"><?= $title.$rc.$new; ?></a>
 
           <?php } ?>
 
