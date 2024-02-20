@@ -21,7 +21,8 @@
   $page_result = $mysqli->query($page_sql);
   $page_row = mysqli_fetch_assoc($page_result);
   $row_num = $page_row['cnt'];
- 
+
+
 
   //페이지네이션 변수
   $list = 10;//한페이지당 출력할 게시물 수
@@ -39,7 +40,7 @@
   $total_block = ceil($total_page/$block_ct); //  7/5 = 2
   $start_num = ($page-1) * $list; //1-1*10 = 0
 
-  $sql = "SELECT * FROM board order by idx desc limit {$start_num}, {$list}";
+  $sql = "SELECT * FROM board WHERE $search_type LIKE '%$search_keyword%' order by idx desc limit {$start_num}, {$list}";
   $result = $mysqli->query($sql);
 
   
@@ -58,7 +59,7 @@
 <body>
   <div class="wrapper">
     <h1>자유게시판</h1>
-    <p><?= $type_name; ?>:<?= $search_keyword; ?>의 검색결과는 총 '<?= $row_num; ?>'건 입니다.</p>
+    <p><?= $type_name; ?>:'<?= $search_keyword; ?>'의 검색결과는 총 '<?= $row_num; ?>'건 입니다.</p>
     <!-- <p>제목:'웹표준'의 검색결과는 총 '10'건 입니다.</p>
     <p>작성자:'홍길동'의 검색결과는 총 '10'건 입니다.</p>
     <p>내용:'웹표준'의 검색결과는 총 '10'건 입니다.</p> -->
@@ -162,7 +163,7 @@
     </div>
     <hr>
     <div class="search_form">
-      <form action="page/board/search.php" method="get">
+      <form action="search.php" method="get">
           <select name="search_type">
             <option value="title">제목</option>
             <option value="name">글쓴이</option>
